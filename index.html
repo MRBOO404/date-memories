@@ -3,58 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Date Memories</title>
+    <title>Our Love Story</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', cursive;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background: linear-gradient(135deg, #ffe6f2, #e6f3ff);
+            overflow: hidden;
         }
         h1 {
-            color: #333;
+            color: #ff4d88;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(255, 77, 136, 0.3);
+            position: relative;
+        }
+        h1::after {
+            content: '❤️';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1em;
+            top: 100%;
         }
         #gallery {
             text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
         #dateImage {
             max-width: 80%;
             max-height: 60vh;
-            border: 5px solid #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
+            border: 5px solid #ff99cc;
+            box-shadow: 0 6px 12px rgba(255, 153, 204, 0.3);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        #dateImage:hover {
+            transform: scale(1.05);
         }
         .nav-buttons {
             margin-top: 20px;
         }
         button {
-            padding: 10px 20px;
+            padding: 12px 25px;
             margin: 0 10px;
             font-size: 16px;
             cursor: pointer;
-            background-color: #6200ea;
+            background-color: #ff69b4;
             color: white;
             border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            border-radius: 25px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3);
         }
         button:hover {
-            background-color: #3700b3;
+            background-color: #ff1493;
+            transform: translateY(-2px);
         }
         button:disabled {
-            background-color: #ccc;
+            background-color: #ffb6c1;
             cursor: not-allowed;
+        }
+        #caption {
+            color: #ff4d88;
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 1.1em;
         }
     </style>
 </head>
 <body>
-    <h1>Our Date Memories</h1>
+    <h1>Our Love Story</h1>
     <div id="gallery">
-        <img id="dateImage" src="" alt="Date Memory">
+        <img id="dateImage" src="" alt="Our Sweet Memory">
+        <p id="caption"></p>
         <div class="nav-buttons">
             <button id="backBtn" onclick="changeImage(-1)">Back</button>
             <button id="nextBtn" onclick="changeImage(1)">Next</button>
@@ -64,25 +93,36 @@
         // Array of image paths from the images folder
         const images = [
             'images/date1.jpg',
+            'images/date1_1.jpg',
+            'images/date2.jpg',
             'images/date2_1.jpg',
             'images/date2_2.jpg',
-            'images/date2_3.jpg',
-            'images/date3_1.jpg',
-            'images/date3_2.jpg'
+            'images/date3.jpg'
+        ];
+        // Sweet captions for each image
+        const captions = [
+            'Our first date under the stars 🌟',
+            'A cozy moment together 💕',
+            'Dinner date with you ❤️',
+            'Walking hand in hand 🌹',
+            'That picnic by the lake 🌸',
+            'Our romantic sunset 🧡'
         ];
         let currentIndex = 0;
 
-        // Function to update the displayed image
+        // Function to update the displayed image and caption
         function updateImage() {
             const imageElement = document.getElementById('dateImage');
+            const captionElement = document.getElementById('caption');
             imageElement.src = images[currentIndex];
+            captionElement.textContent = captions[currentIndex] || '';
             
             // Update button states
             document.getElementById('backBtn').disabled = currentIndex === 0;
             document.getElementById('nextBtn').disabled = currentIndex === images.length - 1;
         }
 
-        // Function to change image based on direction (1 for next, -1 for back)mm
+        // Function to change image based on direction (1 for next, -1 for back)
         function changeImage(direction) {
             currentIndex += direction;
             if (currentIndex < 0) currentIndex = 0;
